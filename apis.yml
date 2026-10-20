@@ -1,0 +1,31 @@
+aid: vectoree
+name: Vectoree
+description: 'Vectoree is a company surfaced via the API Evangelist harvest backlog (source: new-submission)
+  and added to the network as a stub for full-pipeline profiling.'
+url: https://raw.githubusercontent.com/api-evangelist/vectoree/refs/heads/main/apis.yml
+x-type: company
+x-source: harvest:new-submission
+x-tier: stub
+x-tier-reason: harvest
+specificationVersion: '0.20'
+created: '2026-10-20'
+modified: '2026-10-20'
+tags:
+- Company
+apis: []
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com
+- FN: APIs.json
+  email: info@apis.io
+common:
+- type: Website
+  url: https://vectoree.ai
+- type: Documentation
+  url: https://vectoree.ai/SKILL.md
+x-submission-notes: 'Backend for coding agents: models, auth, Postgres, storage behind one key; OpenAI-compatible
+  gateway /api/v1 | Kin approved 2026-10-20 (case-by-case: Live gateway, but core is an OpenAI-compatible
+  resale of others'' models bundled with BaaS; personal )'
+x-submission-probe: root 200; SKILL.md 200 v0.9.0; /api/v1/models 401 JSON (live gateway, key required);
+  no llms.txt (404); soft-404 clean (Express 404)
+x-submitted-by: rocatus@outlook.com (submission, 2026-10-19)
