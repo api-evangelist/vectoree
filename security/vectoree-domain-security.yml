@@ -1,0 +1,16 @@
+generated: '2026-10-20'
+method: probed
+source: live DNS/TLS/HTTP probes of apis.yml + OpenAPI hosts
+hosts:
+- host: vectoree.ai
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Dec 23 11:03:58 2026 GMT
+  hsts: false
+domains:
+- domain: vectoree.ai
+  dnssec: false
+  caa: []
+  spf: true
+  dmarc: true
+  dmarc_policy: none
