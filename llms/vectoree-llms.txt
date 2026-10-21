@@ -1,0 +1,217 @@
+# Vectoree Docs
+
+## Docs
+
+### Getting Started
+
+- [Overview](https://docs.vectoree.ai/introduction.md): Use Vectoree to build and improve your agent — then let other people use it.
+- [Products](https://docs.vectoree.ai/products.md): Backend products and dashboard Build modules on one project. Deploy and Payments are next.
+- [CLI setup](https://docs.vectoree.ai/quickstart.md): Install the skill, log in, and link a project.
+
+### Features
+
+- [Model Gateway](https://docs.vectoree.ai/models.md): One OpenAI-compatible endpoint for multiple models. Pay per token from the org wallet.
+- [Templates](https://docs.vectoree.ai/templates.md): Start from a Vectoree-adapted repo. Copy a prompt, clone locally, and link the current Cloud project.
+- [Tool Hub](https://docs.vectoree.ai/tools.md): Hosted MCP tools for search, extract, and data lookups. Browse, try, and connect from the dashboard.
+- [Authentication](https://docs.vectoree.ai/auth.md): Add login to your app. This is not logging into Vectoree Cloud.
+- [Database](https://docs.vectoree.ai/database.md): Managed Postgres with row-level security. Multi-tenant isolation without glue code.
+- [Storage](https://docs.vectoree.ai/storage.md): Object storage with public and private buckets. Upload and manage files from CLI or dashboard.
+- [Billing](https://docs.vectoree.ai/billing.md): Top up the org wallet, pay per token for model and tool usage. Transparent and usage-based.
+- [Deploy](https://docs.vectoree.ai/deploy.md): Publish the linked project to a public HTTPS URL. Coming soon.
+- [Payments](https://docs.vectoree.ai/payments.md): Charge the people who use your agent. Coming soon.
+
+### Agent Integrations
+
+- [Integrate with Codex](https://docs.vectoree.ai/codex.md): One command to switch OpenAI Codex (CLI or ChatGPT desktop) to the Vectoree Model Gateway.
+
+### FAQ
+
+- [FAQ](https://docs.vectoree.ai/faq.md): Common questions about billing, connection, models, data, and what ships in 1.0.
+
+## API Reference
+
+### Tables
+
+#### Admin
+
+- [List Tables](https://docs.vectoree.ai/api-reference/admin/list-tables.md)
+- [Create Table](https://docs.vectoree.ai/api-reference/admin/create-table.md): Create a table in the project app schema. `id`, `created_at`, and `updated_at` are added automatically. Column fields are `columnName`, `type`, `isNullable`, and `isUnique` (not `name` / `nullable`).
+- [Get Table Schema](https://docs.vectoree.ai/api-reference/admin/get-table-schema.md)
+- [Update Table Schema](https://docs.vectoree.ai/api-reference/admin/update-table-schema.md)
+- [Delete Table](https://docs.vectoree.ai/api-reference/admin/delete-table.md)
+- [List Database Schemas](https://docs.vectoree.ai/api-reference/admin/list-database-schemas.md)
+- [List Database Functions](https://docs.vectoree.ai/api-reference/admin/list-database-functions.md)
+- [List Database Indexes](https://docs.vectoree.ai/api-reference/admin/list-database-indexes.md)
+- [List Row Level Security Policies](https://docs.vectoree.ai/api-reference/admin/list-row-level-security-policies.md)
+- [List Database Triggers](https://docs.vectoree.ai/api-reference/admin/list-database-triggers.md)
+- [Call Database RPC](https://docs.vectoree.ai/api-reference/admin/call-database-rpc.md): Forward a Postgres function call through PostgREST.
+- [List Database Migrations](https://docs.vectoree.ai/api-reference/admin/list-database-migrations.md)
+- [Create and Execute Database Migration](https://docs.vectoree.ai/api-reference/admin/create-and-execute-database-migration.md)
+
+### Authentication
+
+#### Client
+
+- [Get public auth methods](https://docs.vectoree.ai/api-reference/client/get-public-auth-methods.md): Returns email/code settings and configured OAuth providers for the project selected by the credential. Requires a publishable key or a project API key with `auth:*`.
+- [Update current user's profile](https://docs.vectoree.ai/api-reference/client/update-current-users-profile.md): Update the profile of the currently authenticated user
+- [Get user profile by ID](https://docs.vectoree.ai/api-reference/client/get-user-profile-by-id.md): Get public profile information for a user by their ID (public endpoint)
+- [Register new user](https://docs.vectoree.ai/api-reference/client/register-new-user.md): Creates a new user account
+- [User login](https://docs.vectoree.ai/api-reference/client/user-login.md): Authenticates a tenant app user in the selected project. Requires a project publishable key (`pk_`) or project API key with `auth:*` scope in the Authorization header. Sets `vectoree_refresh_token` (path `/api/auth`) for web clients.
+- [Sign in with a native ID token](https://docs.vectoree.ai/api-reference/client/sign-in-with-a-native-id-token.md): Google One Tap / native SDK ID token sign-in for tenant app users. Requires a project API key with `auth:*` or a publishable key. Currently `provider` must be `google`.
+- [Refresh access token](https://docs.vectoree.ai/api-reference/client/refresh-access-token.md): Refresh access token using refresh token. - Web clients: Use httpOnly refresh token cookie with X-CSRF-Token header - Mobile/Desktop/Server clients: Send refreshToken in request body
+- [Logout user](https://docs.vectoree.ai/api-reference/client/logout-user.md): Logout and clear refresh token cookie
+- [Get current session](https://docs.vectoree.ai/api-reference/client/get-current-session.md): Returns the currently authenticated user's basic info from the access token. Project admin tokens return a projectAdmin session object instead of an auth.users row.
+- [Send email verification (code or link based on config)](https://docs.vectoree.ai/api-reference/client/send-email-verification-code-or-link-based-on-config.md): Send email verification using the method configured in auth settings (verifyEmailMethod). When method is 'code', sends an 8-digit numeric code. When method is 'link', sends a browser verification link that goes through an Vectoree backend endpoint first. Prevents user enumeration by returning succes…
+- [Verify email from browser link click](https://docs.vectoree.ai/api-reference/client/verify-email-from-browser-link-click.md): Browser-oriented link verification flow.
+- [Verify email with code](https://docs.vectoree.ai/api-reference/client/verify-email-with-code.md): Verify email address with an 8-digit code.
+- [Send password reset (code or link based on config)](https://docs.vectoree.ai/api-reference/client/send-password-reset-code-or-link-based-on-config.md): Send password reset email using the method configured in auth settings (resetPasswordMethod). When method is 'code', sends a 6-digit numeric code for two-step flow. When method is 'link', sends a browser reset link that goes through an Vectoree backend endpoint first. Prevents user enumeration by re…
+- [Exchange reset password code for reset token](https://docs.vectoree.ai/api-reference/client/exchange-reset-password-code-for-reset-token.md): Step 1 of two-step password reset flow (only used when resetPasswordMethod is 'code'): 1. Verify the 6-digit code sent to user's email 2. Return a reset token that can be used to actually reset the password
+- [Open password reset flow from browser link click](https://docs.vectoree.ai/api-reference/client/open-password-reset-flow-from-browser-link-click.md): Browser-oriented password reset link flow.
+- [Reset password with token](https://docs.vectoree.ai/api-reference/client/reset-password-with-token.md): Reset user password with a token. The token can be: - Magic link token (64-character hex token from send-reset-password when method is 'link') - Reset token (from exchange-reset-password-token after code verification when method is 'code')
+- [Initiate OAuth flow (PKCE)](https://docs.vectoree.ai/api-reference/client/initiate-oauth-flow-pkce.md): Generate OAuth authorization URL for any supported provider using PKCE flow.
+- [Exchange OAuth code for tokens (PKCE)](https://docs.vectoree.ai/api-reference/client/exchange-oauth-code-for-tokens-pkce.md): Exchange the vectoree_code (received from OAuth callback) for access and refresh tokens.
+- [Shared OAuth callback handler](https://docs.vectoree.ai/api-reference/client/shared-oauth-callback-handler.md): Handles OAuth callbacks from Vectoree Cloud shared OAuth
+- [Provider-specific OAuth callback (GET)](https://docs.vectoree.ai/api-reference/client/provider-specific-oauth-callback-get.md): OAuth callback endpoint for provider-specific flows (most providers use GET).
+- [Provider-specific OAuth callback (POST)](https://docs.vectoree.ai/api-reference/client/provider-specific-oauth-callback-post.md): OAuth callback endpoint for providers that use POST (e.g., Apple with form_post response mode).
+- [Initiate custom OAuth flow (PKCE)](https://docs.vectoree.ai/api-reference/client/initiate-custom-oauth-flow-pkce.md): Generate OAuth authorization URL for a configured custom OAuth provider using PKCE flow
+- [Custom OAuth callback (GET)](https://docs.vectoree.ai/api-reference/client/custom-oauth-callback-get.md): OAuth callback endpoint for custom OAuth providers
+
+#### Admin
+
+- [Get authentication configuration](https://docs.vectoree.ai/api-reference/admin/get-authentication-configuration.md): Get current authentication settings including all configuration options (admin only)
+- [Update authentication configuration](https://docs.vectoree.ai/api-reference/admin/update-authentication-configuration.md): Update authentication settings (admin only)
+- [List all users (admin only)](https://docs.vectoree.ai/api-reference/admin/list-all-users-admin-only.md): Returns paginated list of users
+- [Delete users (admin only)](https://docs.vectoree.ai/api-reference/admin/delete-users-admin-only.md): Delete multiple users by their IDs
+- [Get specific user](https://docs.vectoree.ai/api-reference/admin/get-specific-user.md): Get user details by ID (admin only)
+- [Create an app user as a project administrator](https://docs.vectoree.ai/api-reference/admin/create-an-app-user-as-a-project-administrator.md): Creates a user in the selected project, bypassing the public signup switch. Dashboard sessions may call this route with X-Project-Id. Project API Keys must have auth:* and select their project from the key.
+- [Admin login](https://docs.vectoree.ai/api-reference/admin/admin-login.md): Authenticates admin user for dashboard access
+- [Exchange cloud provider authorization code for admin session](https://docs.vectoree.ai/api-reference/admin/exchange-cloud-provider-authorization-code-for-admin-session.md): Verifies an authorization code/JWT from from VECTOREE Cloud platform and issues an internal admin session token with project_admin role
+- [Get current platform admin session](https://docs.vectoree.ai/api-reference/admin/get-current-platform-admin-session.md): Returns the platform_admin / platform_ops identity from the admin JWT.
+- [Refresh admin dashboard access token](https://docs.vectoree.ai/api-reference/admin/refresh-admin-dashboard-access-token.md): Uses the dashboard-only httpOnly `vectoree_admin_refresh_token` cookie with an `X-CSRF-Token` header.
+- [Logout admin dashboard session](https://docs.vectoree.ai/api-reference/admin/logout-admin-dashboard-session.md): Clears the dashboard-only `vectoree_admin_refresh_token` cookie.
+- [Get SMTP configuration](https://docs.vectoree.ai/api-reference/admin/get-smtp-configuration.md): Project Auth SMTP config. Requires Console JWT or a project API key with `auth:*`.
+- [Update SMTP configuration](https://docs.vectoree.ai/api-reference/admin/update-smtp-configuration.md)
+- [List Auth email templates](https://docs.vectoree.ai/api-reference/admin/list-auth-email-templates.md)
+- [Update an Auth email template](https://docs.vectoree.ai/api-reference/admin/update-an-auth-email-template.md)
+- [List all OAuth configurations](https://docs.vectoree.ai/api-reference/admin/list-all-oauth-configurations.md): Get all configured OAuth providers (admin only)
+- [Create OAuth configuration](https://docs.vectoree.ai/api-reference/admin/create-oauth-configuration.md): Create a new OAuth provider configuration (admin only)
+- [Get OAuth configuration for specific provider](https://docs.vectoree.ai/api-reference/admin/get-oauth-configuration-for-specific-provider.md): Get OAuth configuration including client secret (admin only)
+- [Update OAuth configuration](https://docs.vectoree.ai/api-reference/admin/update-oauth-configuration.md): Update OAuth provider configuration (admin only)
+- [Delete OAuth configuration](https://docs.vectoree.ai/api-reference/admin/delete-oauth-configuration.md): Delete OAuth provider configuration (admin only)
+- [List all custom OAuth configurations](https://docs.vectoree.ai/api-reference/admin/list-all-custom-oauth-configurations.md): Get all configured custom OAuth providers (admin only)
+- [Create custom OAuth configuration](https://docs.vectoree.ai/api-reference/admin/create-custom-oauth-configuration.md): Create a new custom OAuth provider configuration (admin only)
+- [Get custom OAuth configuration](https://docs.vectoree.ai/api-reference/admin/get-custom-oauth-configuration.md): Get a custom OAuth configuration including client secret (admin only)
+- [Update custom OAuth configuration](https://docs.vectoree.ai/api-reference/admin/update-custom-oauth-configuration.md): Update a custom OAuth provider configuration (admin only)
+- [Delete custom OAuth configuration](https://docs.vectoree.ai/api-reference/admin/delete-custom-oauth-configuration.md): Delete a custom OAuth provider configuration (admin only)
+
+### Records
+
+#### Client
+
+- [Query Records](https://docs.vectoree.ai/api-reference/client/query-records.md): Query records from a table with filtering, sorting, and pagination
+- [Create Records](https://docs.vectoree.ai/api-reference/client/create-records.md): Create one or more records. Request body MUST be an array.
+- [Delete Records](https://docs.vectoree.ai/api-reference/client/delete-records.md): Delete records matching query filters
+- [Update Records](https://docs.vectoree.ai/api-reference/client/update-records.md): Update records matching query filters
+
+### Storage
+
+#### Admin
+
+- [List All Buckets](https://docs.vectoree.ai/api-reference/admin/list-all-buckets.md)
+- [Create New Bucket](https://docs.vectoree.ai/api-reference/admin/create-new-bucket.md)
+- [Delete Bucket](https://docs.vectoree.ai/api-reference/admin/delete-bucket.md): Delete an entire bucket and all its objects
+- [Update Bucket](https://docs.vectoree.ai/api-reference/admin/update-bucket.md)
+- [List Objects in Bucket](https://docs.vectoree.ai/api-reference/admin/list-objects-in-bucket.md)
+
+#### Client
+
+- [Upload Object with Auto-Generated Key](https://docs.vectoree.ai/api-reference/client/upload-object-with-auto-generated-key.md)
+- [Get Upload Strategy (Direct or Presigned URL)](https://docs.vectoree.ai/api-reference/client/get-upload-strategy-direct-or-presigned-url.md): Returns upload strategy based on storage backend (S3 returns presigned URLs, local returns direct upload endpoints)
+- [Download Object](https://docs.vectoree.ai/api-reference/client/download-object.md)
+- [Upload Object](https://docs.vectoree.ai/api-reference/client/upload-object.md)
+- [Delete Object](https://docs.vectoree.ai/api-reference/client/delete-object.md)
+- [Confirm Presigned Upload](https://docs.vectoree.ai/api-reference/client/confirm-presigned-upload.md): Confirms that a file was successfully uploaded to S3 using presigned URL
+- [Get Download Strategy (Direct or Presigned URL)](https://docs.vectoree.ai/api-reference/client/get-download-strategy-direct-or-presigned-url.md): Returns download strategy based on storage backend and bucket visibility. - S3 with public bucket: Direct URLs (no presigning, better performance) - S3 with private bucket: Presigned URLs with expiration - Local storage: Always direct endpoints
+- [Get Download Strategy (Deprecated — use GET on the canonical path)](https://docs.vectoree.ai/api-reference/client/get-download-strategy-deprecated-—-use-get-on-the-canonical-path.md): Deprecated alias of `GET /api/storage/buckets/{bucketName}/download-strategy/objects/{objectKey}`. Retained at the original path/method for backward compatibility with SDK releases that already shipped against this POST endpoint. Any request body is ignored.
+
+#### S3 Access Keys
+
+- [Get S3 Gateway Config](https://docs.vectoree.ai/api-reference/s3-access-keys/get-s3-gateway-config.md): Return the externally-reachable endpoint URL and the SigV4 signing region for the S3 protocol gateway. The endpoint is assembled from the server's `VITE_API_BASE_URL` env var plus `/storage/v1/s3`, and the region is `AWS_REGION` (default `us-east-2`).
+- [List S3 Access Keys](https://docs.vectoree.ai/api-reference/s3-access-keys/list-s3-access-keys.md): Return every S3 access key configured for this project. Plaintext secrets are **never** returned here — the secret is only shown once in the response of `POST /api/storage/s3/access-keys`.
+- [Create S3 Access Key](https://docs.vectoree.ai/api-reference/s3-access-keys/create-s3-access-key.md): Mint a new S3 credential pair usable against the `/storage/v1/s3` protocol gateway. The plaintext `secretAccessKey` in the response is returned **exactly once** — it is encrypted at rest and can never be retrieved again. If you lose it, revoke and re-create.
+- [Revoke S3 Access Key](https://docs.vectoree.ai/api-reference/s3-access-keys/revoke-s3-access-key.md): Revoke an S3 access key by its id. The in-memory LRU cache is invalidated synchronously so subsequent S3 protocol requests with this credential return `403 InvalidAccessKeyId`.
+
+#### S3 Protocol
+
+- [S3 protocol (GET)](https://docs.vectoree.ai/api-reference/s3-protocol/s3-protocol-get.md): Dispatched to ListBuckets / ListObjectsV2 / GetObject / HeadObject / ListParts / GetBucketLocation / GetBucketVersioning based on path shape and query.
+- [S3 protocol (PUT)](https://docs.vectoree.ai/api-reference/s3-protocol/s3-protocol-put.md): Dispatched to PutObject / UploadPart / CopyObject / CreateBucket based on path shape, query, and headers.
+- [S3 protocol (POST)](https://docs.vectoree.ai/api-reference/s3-protocol/s3-protocol-post.md): Dispatched to CreateMultipartUpload / CompleteMultipartUpload / DeleteObjects based on query.
+- [S3 protocol (DELETE)](https://docs.vectoree.ai/api-reference/s3-protocol/s3-protocol-delete.md): Dispatched to DeleteObject / DeleteBucket / AbortMultipartUpload based on path and query.
+- [S3 protocol (HEAD)](https://docs.vectoree.ai/api-reference/s3-protocol/s3-protocol-head.md): Dispatched to HeadBucket / HeadObject based on path shape.
+
+### Model Gateway
+
+#### Gateway
+
+- [List models](https://docs.vectoree.ai/api-reference/gateway/list-models.md)
+- [Chat completions (text + multimodal input)](https://docs.vectoree.ai/api-reference/gateway/chat-completions-text-+-multimodal-input.md): Supports vision content parts on messages (image_url). Set `stream: true` for SSE (`text/event-stream`) with OpenAI chunk payloads and a terminal `data: [DONE]` event.
+- [OpenAI Responses API (stateless subset)](https://docs.vectoree.ai/api-reference/gateway/openai-responses-api-stateless-subset.md): Does not support `previous_response_id`.
+- [Anthropic Messages API](https://docs.vectoree.ai/api-reference/gateway/anthropic-messages-api.md)
+- [Gemini generateContent](https://docs.vectoree.ai/api-reference/gateway/gemini-generatecontent.md): Model is supplied in the JSON body (not the path).
+- [Gemini generateContent (SSE)](https://docs.vectoree.ai/api-reference/gateway/gemini-generatecontent-sse.md)
+- [Create embeddings](https://docs.vectoree.ai/api-reference/gateway/create-embeddings.md)
+- [Generate images](https://docs.vectoree.ai/api-reference/gateway/generate-images.md): Sync by default. Pass `async: true` or `Prefer: respond-async` for a job. Send `Idempotency-Key` to safely retry after client/proxy timeouts.
+- [Poll async / recoverable image job](https://docs.vectoree.ai/api-reference/gateway/poll-async-recoverable-image-job.md)
+- [Submit video generation job](https://docs.vectoree.ai/api-reference/gateway/submit-video-generation-job.md): Asynchronous. Poll `GET /api/v1/videos/{jobId}` until status is completed.
+- [Poll video generation job](https://docs.vectoree.ai/api-reference/gateway/poll-video-generation-job.md)
+- [Download generated video bytes](https://docs.vectoree.ai/api-reference/gateway/download-generated-video-bytes.md)
+- [Text to speech](https://docs.vectoree.ai/api-reference/gateway/text-to-speech.md)
+- [Speech to text](https://docs.vectoree.ai/api-reference/gateway/speech-to-text.md)
+
+### Tool Hub
+
+#### Tool Hub
+
+- [List Tool Hub catalog](https://docs.vectoree.ai/api-reference/tool-hub/list-tool-hub-catalog.md): Dashboard-authenticated catalog of available tools.
+- [Get Tool Hub tool](https://docs.vectoree.ai/api-reference/tool-hub/get-tool-hub-tool.md)
+- [Get Tool Hub MCP config](https://docs.vectoree.ai/api-reference/tool-hub/get-tool-hub-mcp-config.md): Config snippet for connecting an MCP client to `POST /mcp`.
+- [Web search](https://docs.vectoree.ai/api-reference/tool-hub/web-search.md): Tavily-compatible search. Bills organization wallet per request. Requires `tools:*`.
+- [Web extract](https://docs.vectoree.ai/api-reference/tool-hub/web-extract.md): Tavily-compatible URL extraction. Bills per successful URL. Requires `tools:*`.
+- [Run a Tool Hub tool](https://docs.vectoree.ai/api-reference/tool-hub/run-a-tool-hub-tool.md)
+- [Tool Hub MCP JSON-RPC](https://docs.vectoree.ai/api-reference/tool-hub/tool-hub-mcp-json-rpc.md): Hosted MCP endpoint. Send Authorization: Bearer sk-ve-v1-... with tools:*.
+
+### Health
+
+#### Client
+
+- [Health check](https://docs.vectoree.ai/api-reference/client/health-check.md): Check if the API is running and healthy
+
+## Changelog
+
+- [Changelog](https://docs.vectoree.ai/changelog.md)
+
+## OpenAPI Specs
+
+- [tables](/openapi/tables.yaml)
+- [auth](/openapi/auth.yaml)
+- [records](/openapi/records.yaml)
+- [storage](/openapi/storage.yaml)
+- [gateway-v1](/openapi/gateway-v1.yaml)
+- [tool-hub](/openapi/tool-hub.yaml)
+- [health](/openapi/health.yaml)
+- [ai](/openapi/ai.yaml)
+
+## Optional
+
+- [Community](https://discord.gg/SgbKCtqEgT)
+- [Blog](https://blog.vectoree.ai)
+- [GitHub](https://github.com/VectoreeAI/)
+
+> The links below point to documentation indexes. Follow each `/_llms/` index recursively until you reach documentation pages.
+
+## Indexes
+
+- [Chinese (124 pages)](https://docs.vectoree.ai/_llms/zh.txt): Documentation for Chinese.
+
+
+This documentation is built and hosted on [Mintlify](https://mintlify.com), a developer documentation platform.

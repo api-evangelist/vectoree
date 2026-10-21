@@ -1,0 +1,20 @@
+generated: '2026-10-20'
+method: searched
+generator: extract-docs-artifacts.py (local)
+source: https://docs.vectoree.ai/auth.md
+sources:
+- https://docs.vectoree.ai/auth.md
+- https://docs.vectoree.ai/api-reference/client/initiate-oauth-flow-pkce.md
+- https://docs.vectoree.ai/api-reference/client/exchange-oauth-code-for-tokens-pkce.md
+- https://docs.vectoree.ai/api-reference/client/shared-oauth-callback-handler.md
+description: Authentication schemes for Vectoree Auth APIs
+schemes:
+- type: http-bearer
+  name: Project API Key
+  evidence: 'Send the project API Key with `auth:*` as `Authorization: Bearer`.'
+  location: header
+  header: Authorization
+  how_to_obtain: 'Server calls use a project API key with `auth:*` as `Authorization: Bearer`.'
+note: OAuth flows (PKCE) are described in separate endpoints but no OAuth2 security scheme is defined on the API; token exchange is performed
+  via the `/api/auth/oauth/exchange` endpoint.
+docs: https://docs.vectoree.ai/auth.md

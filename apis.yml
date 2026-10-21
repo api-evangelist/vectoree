@@ -1,32 +1,102 @@
 aid: vectoree
+
 name: Vectoree
-description: 'Vectoree provides a backend platform for AI coding agents, offering OpenAI‑compatible model access, authentication, Postgres databases, object storage, and a tool hub. Developers can install a single CLI, link a project key, and call the gateway via standard OpenAI SDKs, enabling rapid agent development and deployment with pay‑as‑you‑go pricing.'
+
+image: https://vectoree.ai/og-home.png
+
+description: Vectoree is a backend-as-a-service platform designed for AI coding agents. It offers OpenAI‑compatible model access, authentication,
+  managed Postgres databases, object storage, and a curated tool hub. Developers install a single CLI, obtain a project key, and interact via
+  standard OpenAI SDKs, enabling rapid development, deployment, and scaling of agents with a simple pay‑as‑you‑go model.
+
 url: https://raw.githubusercontent.com/api-evangelist/vectoree/refs/heads/main/apis.yml
+
 x-type: company
+
 x-source: harvest:new-submission
-x-tier: stub
-x-tier-reason: harvest
+
+x-tier: profiled
+x-tier-reason: enrichment pass 2026-10-20 (modular-v1; was harvest)
+
 specificationVersion: '0.20'
+
 created: '2026-10-20'
+
 modified: '2026-10-20'
+
 tags:
 - Company
-apis: []
+- AI
+- Backend-as-a-Service
+- OpenAI-Compatible
+- Agents
+
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
+
 common:
+- type: Authentication
+  url: authentication/vectoree-authentication.yml
+- type: LLMsTxt
+  url: llms/vectoree-llms.txt
+- type: AgentCard
+  url: a2a/vectoree-a2a.yml
+- type: WellKnown
+  url: well-known/vectoree-well-known.yml
+- type: Hosts
+  url: hosts/vectoree-hosts.yml
+- type: Vendors
+  url: vendors/vectoree-vendors.yml
+- type: Login
+  url: https://vectoree.ai/dashboard/login
+- type: GitHubOrganization
+  url: https://github.com/VectoreeAI
+- type: ChangeLog
+  url: https://docs.vectoree.ai/changelog
 - type: DomainSecurity
   url: security/vectoree-domain-security.yml
 - type: Website
   url: https://vectoree.ai
 - type: Documentation
   url: https://vectoree.ai/SKILL.md
-x-submission-notes: 'Backend for coding agents: models, auth, Postgres, storage behind one key; OpenAI-compatible
-  gateway /api/v1 | Kin approved 2026-10-20 (case-by-case: Live gateway, but core is an OpenAI-compatible
-  resale of others'' models bundled with BaaS; personal )'
-x-submission-probe: root 200; SKILL.md 200 v0.9.0; /api/v1/models 401 JSON (live gateway, key required);
-  no llms.txt (404); soft-404 clean (Express 404)
+- type: Documentation
+  url: https://docs.vectoree.ai
+- type: APIReference
+  url: https://docs.vectoree.ai/api-reference
+- type: GettingStarted
+  url: https://docs.vectoree.ai/quickstart
+- type: Blog
+  url: https://blog.vectoree.ai
+- type: Support
+  url: https://discord.gg/SgbKCtqEgT
+
+apis:
+- name: Vectoree API
+  description: Vectoree provides an OpenAI‑compatible backend API for AI coding agents.
+  humanURL: https://docs.vectoree.ai/api-reference
+  aid: vectoree:vectoree-api
+
+x-submission-notes: 'Backend for coding agents: models, auth, Postgres, storage behind one key; OpenAI-compatible gateway /api/v1 | Kin approved
+  2026-10-20 (case-by-case: Live gateway, but core is an OpenAI-compatible resale of others'' models bundled with BaaS; personal )'
+
+x-submission-probe: root 200; SKILL.md 200 v0.9.0; /api/v1/models 401 JSON (live gateway, key required); no llms.txt (404); soft-404 clean (Express
+  404)
+
 x-submitted-by: rocatus@outlook.com (submission, 2026-10-19)
+
+x-coverage:
+  state: unreadable
+  reason: js-rendered-docs
+  detail: Documentation pages are rendered via Mintlify and do not expose a machine‑readable OpenAPI or other contract.
+  evidence:
+  - url: https://docs.vectoree.ai/api-reference
+    status: 307
+  checked: '2026-10-20'
+x-enrichment:
+  date: '2026-10-20'
+  status: enriched
+  artifacts_added: 17
+  pass: modular-v1
+  engine: identity=local,contract=local,surfaces=local,docs=local,regulatory=local
